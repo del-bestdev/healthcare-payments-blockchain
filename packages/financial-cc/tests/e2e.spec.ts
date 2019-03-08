@@ -225,45 +225,6 @@ describe('Fhir Financial', () => {
         expect(createdPayer.id).to.equal(payerId);
     });
 
-    it('should create a Consumer participant', async () => {
-        const consumerParticipantId = 'Consumer::Bob';
-        const participant = new ConsumerParticipant({
-            id: consumerParticipantId
-        });
-
-        await ctrl.participant.createConsumer(participant);
-
-        let createdParticipant = await adapter.getById<ConsumerParticipant>(consumerParticipantId);
-        expect(createdParticipant).to.exist;
-        expect(createdParticipant.id).to.equal(consumerParticipantId);
-    });
-    it('should create a Provider participant', async () => {
-        const participantId = 'Provider::Provida';
-        const participant = new ProviderParticipant({
-            id: participantId,
-            providerUid: providerId
-        });
-
-        await ctrl.participant.createProvider(participant);
-
-        let createdParticipant = await adapter.getById<ProviderParticipant>(participantId);
-        expect(createdParticipant).to.exist;
-        expect(createdParticipant.id).to.equal(participantId);
-    });
-    it('should create a Payer participant', async () => {
-        const participantId = 'Payer::Insura';
-        const participant = new PayerParticipant({
-            id: participantId,
-            payerUid: payerId
-        });
-
-        await ctrl.participant.createPayer(participant);
-
-        let createdParticipant = await adapter.getById<PayerParticipant>(participantId);
-        expect(createdParticipant).to.exist;
-        expect(createdParticipant.id).to.equal(participantId);
-    });
-
     it('should create a patient', async () => {
         const patient = new Patient({
             'resourceType': 'Patient',
@@ -337,6 +298,47 @@ describe('Fhir Financial', () => {
         let createdPatient = await adapter.getById<Patient>(patientId);
         expect(createdPatient.id).to.equal(patientId);
         log('Patient fully qualified name set');
+    });
+
+    it('should create a Consumer participant', async () => {
+        const consumerParticipantId = 'Consumer::Bob';
+        const participant = new ConsumerParticipant({
+            id: consumerParticipantId
+        });
+
+        await ctrl.participant.createConsumer(participant);
+
+        let createdParticipant = await adapter.getById<ConsumerParticipant>(consumerParticipantId);
+        expect(createdParticipant).to.exist;
+        expect(createdParticipant.id).to.equal(consumerParticipantId);
+    });
+
+    it('should create a Provider participant', async () => {
+        const participantId = 'Provider::Provida';
+        const participant = new ProviderParticipant({
+            id: participantId,
+            providerUid: providerId
+        });
+
+        await ctrl.participant.createProvider(participant);
+
+        let createdParticipant = await adapter.getById<ProviderParticipant>(participantId);
+        expect(createdParticipant).to.exist;
+        expect(createdParticipant.id).to.equal(participantId);
+    });
+    
+    it('should create a Payer participant', async () => {
+        const participantId = 'Payer::Insura';
+        const participant = new PayerParticipant({
+            id: participantId,
+            payerUid: payerId
+        });
+
+        await ctrl.participant.createPayer(participant);
+
+        let createdParticipant = await adapter.getById<PayerParticipant>(participantId);
+        expect(createdParticipant).to.exist;
+        expect(createdParticipant.id).to.equal(participantId);
     });
 
     it('create a claim (encounter, chargeItems, procedures)', async () => {
